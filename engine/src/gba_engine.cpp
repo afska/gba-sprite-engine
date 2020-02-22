@@ -12,8 +12,8 @@ std::unique_ptr<SoundControl> GBAEngine::activeChannelB;
 std::unique_ptr<Timer> GBAEngine::timer;
 
 void GBAEngine::vsync() {
-    while (REG_VCOUNT >= 160);
-    while (REG_VCOUNT < 160);
+    // while (REG_VCOUNT >= 160);
+    // while (REG_VCOUNT < 160);
 }
 
 Timer* GBAEngine::getTimer() {
@@ -141,8 +141,8 @@ void GBAEngine::update() {
     //     updateSpritesInScene();
     // }
 
-    // TODO use software interrupt Vsyncing instead of 2 wasteful whiles
-    vsync();
+    // VSync disabled (you should handle it externally)
+    // vsync();
     spriteManager.render();
 }
 

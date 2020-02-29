@@ -1,7 +1,12 @@
+# gba-sprite-engine
+
+This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com/wgroeneveld/gba-sprite-engine). The changes are:
+
+- Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
+- Now you can avoid filling VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
+- `Allocator`'s `allocatedSprites` property is now public.
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
-
-[![Build Status](https://travis-ci.org/wgroeneveld/gba-sprite-engine.svg?branch=master)](https://travis-ci.org/wgroeneveld/gba-sprite-engine)
 
 That's a mouthful - let's break that down:
 
@@ -96,7 +101,7 @@ To create your own scene, subclass `Scene` and implement:
 
 Loading up a scene usually involves creating some sprites with the builder. Don't forget to set the palettes like this: `std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));`
 
-The `sprites()` method gets periodically called to check whether something has been added or deleted and updates the VRAM and OAM accordingly. **You don't need to manage anything yourself!** Take a look at demo 3.
+~~The `sprites()` method gets periodically called to check whether something has been added or deleted and updates the VRAM and OAM accordingly. **You don't need to manage anything yourself!** Take a look at demo 3.~~ => That's outdated. Now, you need to call `engine->updateSpritesInScene` to update the sprites.
 
 A simple fade out scene effect is implemented in demo 1, that converges the palette colors of both palettes to white. It's easy to **create your own effects** by subclassing `SceneEffect`. 
 

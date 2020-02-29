@@ -69,8 +69,11 @@ void SpriteManager::hideAll() {
 
 void SpriteManager::copyOverImageDataToVRAM(Sprite *sprite) {
     if(!sprite->data && sprite->imageSize == 0) {
-        // assume it's copied over from another sprite
-        sprite->buildOam(sprite->tileIndex);
+        // copy from the last sprite
+        auto data = Allocator::allocatedSprites.at(Allocator::allocatedSprites.size() - 1);
+        sprite->setData(data.pointer());
+        sprite->setImageSize(data.size);
+        sprite->buildOam(data.getTileLocation());
     } else {
         const auto allocated = Allocator::allocateObjectTiles(sprite->imageSize);
         dma3_cpy(allocated.pointer(), sprite->data, allocated.size);

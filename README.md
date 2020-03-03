@@ -4,6 +4,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
 
 - Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
 - Now you can avoid filling VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
+- `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.
 - `Allocator`'s `allocatedSprites` property is now public.
 
 ## A high-level object-oriented Gameboy Advance sprite engine library

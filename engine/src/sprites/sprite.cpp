@@ -27,9 +27,11 @@ void Sprite::moveTo(VECTOR location) {
 }
 
 void Sprite::moveTo(int x, int y) {
+    if (x == this->x && y == this->y) return;
+    
     this->x = x;
     this->y = y;
-    syncOam();
+    syncVelocity();
 }
 
 bool Sprite::isOffScreen() {

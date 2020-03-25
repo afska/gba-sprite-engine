@@ -40,7 +40,7 @@ void SpriteManager::persist() {
 
 void SpriteManager::copyOverSpriteOAMToVRAM() {
     int i = 0;
-    int affineIndex = 0;
+    // int affineIndex = 0;
 
     for(auto sprite : this->sprites) {
         if (sprite->enabled) {

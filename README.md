@@ -5,6 +5,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
 - VRAM usage tweaks:
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
 - Performance tweaks:
+  * Enabled compiler optimizations (`-O3`).
   * Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
   * `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.
   * `AffineSprite`s are disabled for performance reasons.

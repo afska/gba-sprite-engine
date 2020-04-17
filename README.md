@@ -13,6 +13,8 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
 - Interface tweaks:
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
   * `Allocator`'s `allocatedSprites` property is now public.
+- Other tweaks:
+  * Removed tests and examples from `CMakeLists`
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 

@@ -10,9 +10,11 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.
   * `AffineSprite`s are disabled for performance reasons.
   * `Sprite::moveTo(x, y)` now only syncs animation and it doesn't do anything if the position hasn't changed.
-- Interface tweaks:
+- Library tweaks:
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
   * `Allocator`'s `allocatedSprites` property is now public.
+  * `Background`s now have a `useCharBlock(block)` method.
+  * `Background`s now have a `setMosaic(enabled)` method.
 - Other tweaks:
   * Removed tests and examples from `CMakeLists`
 

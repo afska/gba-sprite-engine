@@ -24,13 +24,16 @@ protected:
     int size, bgIndex;
     int mapSize, mapLayout;
     int screenBlockIndex, charBlockIndex;
+    bool mosaicEnabled = false;
 
 public:
     const int getScreenBlock() { return screenBlockIndex; }
     const int getCharBlock() { return charBlockIndex; }
     void useMapScreenBlock(int block) { screenBlockIndex = block; }
+    void useCharBlock(int block) { charBlockIndex = block; }
     void scroll(int x, int y);
     void scrollSpeed(int dx, int dy);
+    void setMosaic(bool enabled) { mosaicEnabled = enabled; }
 
     Background(int bgIndex, const void *data, int size, const void* map, int mapSize, int screenBlockIndex, int charBlockIndex, int mapLayout)
             : Background(bgIndex, data, size, map, mapSize) {

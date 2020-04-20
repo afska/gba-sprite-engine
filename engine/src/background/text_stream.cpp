@@ -10,14 +10,19 @@
 
 TextStream* TextStream::inst;
 
+const int TEXT_BG_ID = 0;
+const int TEXT_CHARBLOCK = 3;
+const int TEXT_SCREENBLOCK = 30;
+
 void TextStream::clear() {
     currRow = 0;
     currCol = 0;
     clearMap();
 }
 
-TextStream::TextStream() : Background(0, text_data, sizeof(text_data), nullptr, TILE_WIDTH * TILE_WIDTH), currCol(0), currRow(0) {
-    useMapScreenBlock(24);
+TextStream::TextStream() : Background(TEXT_BG_ID, text_data, sizeof(text_data), nullptr, TILE_WIDTH * TILE_WIDTH), currCol(0), currRow(0) {
+    useCharBlock(TEXT_CHARBLOCK);
+    useMapScreenBlock(TEXT_SCREENBLOCK);
     this->palette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
 
     persist();
@@ -61,7 +66,7 @@ void TextStream::setText(const char* text, int row, int col) {
     int index = row * TILE_WIDTH + col;
     int i = 0;
 
-    volatile auto ptr = &se_mem[screenBlockIndex][0];
+    volatile auto ptr = &se_mem[screenBlockIndex][TEXT_CHARBLOCK];
     while (*text) {
         ptr[index] = *text - CHAR_OFFSET_INDEX;
 

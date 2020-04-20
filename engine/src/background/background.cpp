@@ -13,7 +13,7 @@
 #include <libgba-sprite-engine/background/background.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 
-#define TRANSPARENT_TILE_NUMBER 192     // as shown in mGBA, next "free" tile after text. Hardcoded indeed.
+#define TRANSPARENT_TILE_NUMBER 0
 
 // WHY using this instead of Allocation?
 // Because each char block seems to be 16K and there are 4 - there are also 4 backgrounds.

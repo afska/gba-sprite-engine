@@ -16,6 +16,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Allocator`'s `allocatedSprites` property is now public.
   * `Background`s now have a `useCharBlock(block)` method.
   * `Background`s now have a `setMosaic(enabled)` method.
+  * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
 - Other tweaks:
   * Removed tests and examples from `CMakeLists`
 

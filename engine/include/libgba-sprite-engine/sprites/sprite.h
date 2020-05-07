@@ -60,7 +60,6 @@ protected:
     SpriteSize spriteSize;
     u8 animationDelay, numberOfFrames, beginFrame, currentFrame, previousFrame, animationCounter;
     bool animating;
-    OBJ_ATTR oam;
 
     void syncAnimation();
     virtual void syncOam();
@@ -68,6 +67,7 @@ protected:
     void setAttributesBasedOnSize(SpriteSize size);
 
 public:
+    OBJ_ATTR oam;
     bool enabled = true;
     explicit Sprite(const Sprite& other);
     explicit Sprite(const void *imageData, int imageSize, int x, int y, SpriteSize size);

@@ -8,9 +8,10 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
 - Performance tweaks:
   * Enabled compiler optimizations (`-O3`): 200% speed boost!
   * Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
+  * All `Sprite`'s methods are now inline.
   * `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.
   * `AffineSprite`s are disabled for performance reasons.
-  * `Sprite::moveTo(x, y)` now only syncs animation and it doesn't do anything if the position hasn't changed.
+  * `Sprite::moveTo(x, y)` now only syncs position (and not animation) and it doesn't do anything if the position hasn't changed.
 - Library tweaks:
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
   * `Allocator`'s `allocatedSprites` property is now public.

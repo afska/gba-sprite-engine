@@ -6,7 +6,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
   * Now TextStream() uses *BG* 3, *Charblock* 3 and *Screenblock* 30. The *transparent tile* is 0.
 - Performance tweaks:
-  * Enabled compiler optimizations (`-O3`): 200% speed boost!
+  * Enabled compiler optimizations (`-Ofast`): 200% speed boost!
   * Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
   * All `Sprite`'s methods are now inline.
   * `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.

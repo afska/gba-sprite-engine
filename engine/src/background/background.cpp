@@ -66,7 +66,7 @@ u32 Background::getBgControlRegisterIndex() {
 
 void Background::buildRegister() {
     *(vu16*)(REG_BASE+getBgControlRegisterIndex()) =
-                 bgIndex |        /* priority, 0 is highest, 3 is lowest */
+                 priority |        /* priority, 0 is highest, 3 is lowest */
                  (charBlockIndex << 2) |    /* the char block the image data is stored in */
                  ((mosaicEnabled ? 1 : 0) << 6)  |       /* the mosaic flag */
                  (1 << 7)  |       /* color mode, 0 is 16 colors, 1 is 256 colors */

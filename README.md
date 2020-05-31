@@ -11,13 +11,16 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * All `Sprite`'s methods are now inline.
   * `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.
   * `AffineSprite`s are disabled for performance reasons.
-  * `Sprite::moveTo(x, y)` now only syncs position (and not animation) and it doesn't do anything if the position hasn't changed.
+  * `Sprite::moveTo(x, y)` doesn't sync position and velocity anymore, there's no need.
 - Library tweaks:
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
+  * `Sprite`s now have a `setPriority(priority)` method.
   * `Allocator`'s `allocatedSprites` property is now public.
   * `Background`s now have a `useCharBlock(block)` method.
+  * `Background`s now have a `usePriority(priority)` method.
   * `Background`s now have a `setMosaic(enabled)` method.
   * `Sprite`'s `oam` property is now public.
+  * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
 - Other tweaks:
   * Removed tests and examples from `CMakeLists`

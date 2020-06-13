@@ -16,18 +16,19 @@
 #include <string>
 
 class GBAVector {
-private:
-    VECTOR v;
-public:
-    GBAVector() : v({}) {}
-    GBAVector(VECTOR v) : v(v) {}
+ private:
+  VECTOR v;
 
-    std::deque<VECTOR> bresenhamLineTo(VECTOR dest);
-    VECTOR rotateAsCenter(VECTOR point, uint angle);
+ public:
+  GBAVector() : v({}) {}
+  GBAVector(VECTOR v) : v(v) {}
 
-    std::string to_string() {
-        return "(" + std::to_string(v.x) + "," + std::to_string(v.y) + ")";
-    }
+  std::deque<VECTOR> bresenhamLineTo(VECTOR dest);
+  VECTOR rotateAsCenter(VECTOR point, uint angle);
+
+  std::string to_string() {
+    return "(" + std::to_string(v.x) + "," + std::to_string(v.y) + ")";
+  }
 };
 
-#endif //GBA_SPRITE_ENGINE_PROJECT_MATH_H
+#endif  // GBA_SPRITE_ENGINE_PROJECT_MATH_H

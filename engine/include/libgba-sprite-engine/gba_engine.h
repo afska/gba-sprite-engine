@@ -61,7 +61,33 @@ public:
     }
 
     u16 readKeys();
-    void update();
+
+    inline void update() {
+        // main update loop, in while(true) {}.
+        // WARNING - keep amount of instructions as minimal as possible in here!
+        if(sceneToTransitionTo) {
+            currentEffectForTransition->update();
+
+            if(currentEffectForTransition->isDone()) {
+                setScene(sceneToTransitionTo);
+            }
+        }
+
+        u16 keys = readKeys();
+        // main scene update loop call. This *might* take a while.
+        currentScene->tick(keys);
+
+        // Intentionally commented out: asking the scene for sprites() rebuilds the vector each time
+        // Causing a big performance hit. Instead, you should call updateSpritesInScene() yourself!
+        // if(currentScene->sprites().size() != spriteManager.getSpriteSize()) {
+        //     updateSpritesInScene();
+        // }
+
+        // VSync disabled (you should handle it externally)
+        // vsync();
+        spriteManager.render();
+    }
+
     void updateSpritesInScene();
     void delay(int times) {
         for(int i = 0; i < times; i++){}

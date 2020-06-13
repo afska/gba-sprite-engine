@@ -5,6 +5,9 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
 - VRAM usage tweaks:
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
   * Now TextStream() uses *BG* 3, *Charblock* 3 and *Screenblock* 30. The *transparent tile* is 0.
+- Removed features (for performance reasons):
+  * `Sprite`'s velocity
+  * `AffineSprite`s
 - Performance tweaks:
   * Enabled compiler optimizations (`-Ofast`): 200% speed boost!
   * Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
@@ -23,8 +26,6 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Sprite`'s `oam` property is now public.
   * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
-- Other tweaks:
-  * Removed tests and examples from `CMakeLists`
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 
@@ -38,7 +39,7 @@ Instead of writing
 
 ```C
 vu16* paddle = ((volatile tile_block *)0x06000000)[0][1];
-for(int i = 0; i < 4 * sizeof(tile_4bpp) / 2; i++) {
+for (int i = 0; i < 4 * sizeof(tile_4bpp) / 2; i++) {
     paddle[i] = 0x2222;
 }
 ```

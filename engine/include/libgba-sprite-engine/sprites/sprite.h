@@ -53,13 +53,12 @@ class SpriteManager;
 
 class Sprite {
 private:
-    inline void updateVelocity();
     inline void updateAnimation();
     inline void syncPosition();
 
 protected:
     const void *data;
-    int x, y, dx, dy;
+    int x, y;
     u8 animation_offset;
     u32 priority, w, h, size_bits, shape_bits;
     bool stayWithinBounds;
@@ -92,10 +91,6 @@ public:
     inline void animate() { this->animating = true; }
     inline void stopAnimating() { this->animating = false; }
     inline void setStayWithinBounds(bool b) { stayWithinBounds = b; }
-    inline void setVelocity(int dx, int dy) {
-        this->dx = dx;
-        this->dy = dy;
-    }
     inline void update();
 
     inline void moveTo(int x, int y);
@@ -109,11 +104,8 @@ public:
     inline VECTOR getPos() { return {x, y}; }
     inline GBAVector getPosAsVector() { return GBAVector(getPos()); }
     inline VECTOR getCenter() { return { x + w / 2, y + h / 2 }; }
-    inline VECTOR getVelocity() { return { dx, dy}; }
     inline int getX() { return x; }
     inline int getY() { return y; }
-    inline u32 getDx() { return dx; }
-    inline u32 getDy() { return dy; }
     inline u32 getWidth() { return w; }
     inline u32 getHeight() { return h; }
     inline u32 getAnimationDelay() { return animationDelay; }
@@ -185,20 +177,6 @@ inline void Sprite::syncOam() {
     syncAnimation();
 }
 
-inline void Sprite::updateVelocity() {
-    if(dx == 0 && dy == 0) return;
-
-    this->x += this->dx;
-    this->y += this->dy;
-
-    if(stayWithinBounds) {
-        if(this->x < 0) this->x = 0;
-        if(this->y < 0) this->y = 0;
-        if(this->x > (GBA_SCREEN_WIDTH - this->w)) this->x = GBA_SCREEN_WIDTH - this->w;
-        if(this->y > (GBA_SCREEN_HEIGHT - this->h)) this->y = GBA_SCREEN_HEIGHT - this->h;
-    }
-}
-
 inline void Sprite::updateAnimation() {
     if(!animating) return;
 
@@ -218,7 +196,6 @@ inline void Sprite::updateAnimation() {
 }
 
 inline void Sprite::update() {
-    updateVelocity();
     updateAnimation();
     syncOam();
 }

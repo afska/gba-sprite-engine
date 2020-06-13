@@ -5,9 +5,6 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
 - VRAM usage tweaks:
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
   * Now TextStream() uses *BG* 3, *Charblock* 3 and *Screenblock* 30. The *transparent tile* is 0.
-- Removed features (for performance reasons):
-  * `Sprite`'s velocity
-  * `AffineSprite`s
 - Performance tweaks:
   * Enabled compiler optimizations (`-Ofast`): 200% speed boost!
   * Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
@@ -26,6 +23,9 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Sprite`'s `oam` property is now public.
   * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
+- Removed features (for performance reasons):
+  * `Sprite`'s velocity
+  * `AffineSprite`s
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 
@@ -73,7 +73,7 @@ That means `MODE0`.
 
 #### library
 
-It's compiled as a static library for your convenience. Simply link with the library and include the header path and you're all set. Take a look at the demo's `CMake` files if you're interested. 
+It's compiled as a static library for your convenience. Simply link with the library and include the header path and you're all set.
 
 ## Engine features
 
@@ -83,7 +83,7 @@ BIOS methods and Sin/Cos lookup tables are also compiled in Assembly, as `sin_lu
 
 Design overview:
 
-![design](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/design.png?raw=true)
+![design](img/design.png)
 
 Colored blocks are to be implemented in your own game. See below, in section "implementing your game".
 
@@ -122,11 +122,11 @@ To create your own scene, subclass `Scene` and implement:
 
 Loading up a scene usually involves creating some sprites with the builder. Don't forget to set the palettes like this: `std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));`
 
-~~The `sprites()` method gets periodically called to check whether something has been added or deleted and updates the VRAM and OAM accordingly. **You don't need to manage anything yourself!** Take a look at demo 3.~~ => That's outdated. Now, you need to call `engine->updateSpritesInScene` to update the sprites.
+To add or remove sprites, you need to either call `engine->updateSpritesInScene` or add them all at first and use an object pool.
 
 A simple fade out scene effect is implemented in demo 1, that converges the palette colors of both palettes to white. It's easy to **create your own effects** by subclassing `SceneEffect`. 
 
-![sample fade out](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/fade.gif?raw=true)
+![sample fade out](img/fade.gif)
 
 Sample fade effect, demo 1.
 
@@ -136,7 +136,7 @@ Scrollable backgrounds are present:
 
 Call `scroll()` in your scene update.
 
-![scroll bg](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/scroll.gif?raw=true)
+![scroll bg](img/scroll.gif)
 
 Sample scrolling background demo 1.
 
@@ -147,38 +147,25 @@ Creating a background:
     bg->useMapScreenBlock(16);
 ```
 
-Backgrounds work a bit different in VRAM compared to sprites. There are only 4 backgrounds available, and background #4 is taken by the font. Parameter 1 identifies your background used for prioritizing. Remember to use a screen block different than your map data. 
-
 If you want to create bigger maps than 32x32, use `MAPLAYOUT_64x64` or similar in the second constructor.
 
 #### Sprites
 
 Conjuring sprites on the screen is a matter of exposing them to the sprites vector in your scene. Create them in your load and set them as a `std::unique_ptr` member variable in your scene so they get cleaned up automatically. 
 
-Creating sprites is easy with the `SpriteBuilder`. Specify what kind of sprite you want to make as a template argument (`<Sprite>` or `<AffineSprite>`) and specify your data `.with...()`. Done? Call `build()` to get a copy or `buildPtr()` to get a copy wrapped in a unique pointer. 
-
-**Affine sprites can transform** using for example `rotate(angle)` - check out demo 1 or 3 for that. 
-
-![rotation](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/rotate.gif?raw=true)
-
-Sample rotation demo 3.
+Creating sprites is easy with the `SpriteBuilder`. Specify your data `.with...()`. Done? Call `build()` to get a copy or `buildPtr()` to get a copy wrapped in a unique pointer. 
 
 **Sprite animation is built-in**! Just feed your sprite data to the builder and use `.withAnimated(amountOfFrames, frameDelay)`. Remember to position each frame in one column in the image itself (vertically). Like this:
 
-![lama gif example](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/demos/demo1-basicfeatures/img/lama.png?raw=true)
+![lama gif example](img/lama.png)
 
 Useful sprite methods:
 
 * `animate()`, `animateToFrame(x)` or `stopAnimating()`
 * `flipVertically(bool)` or `flipHorizontally(bool)`
-* `setVelocity(dx, dy)` (auto-updates) or `moveTo(x, y)`
-* `setWithinBounds(bool)` automatically keeps your sprite within the GBA resolution bounds
+* `moveTo(x, y)`
 * `collidesWith(otherSprite)` or `isOffScreen()`
 * Various getters like `getWidth()` etc
-
-![stay within bounds](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/img/bounds.gif?raw=true)
-
-The paddle auto-stays within bounds.
 
 Each sprite has own raw data, so there's no shared sprite image (for the better). The palette of course is shared, so think about that when exporting with a tool like [grit](https://www.coranac.com/man/grit/html/grit.htm) or [png2gba](https://github.com/IanFinlayson/png2gba). Grit has flags to export a shared palette:
 
@@ -206,7 +193,7 @@ Sound can to be converted from a RAW Signed 8-bit PCM using [raw2gba](https://gi
 
 #### Text
 
-![default font](https://github.com/wgroeneveld/gba-sprite-engine/blob/master/engine/src/background/text.png?raw=true)
+![default font](engine/src/background/text.png)
 
 There's a **default font embedded into the engine** using the `TextStream::instance()` static instance. It takes up background #4 and claims the last background palette bank so watch out with that! 
 
@@ -233,47 +220,30 @@ The microseconds after the comma are rounded so irregularities are bound to occu
 
 The text stream is also used if something goes wrong, there's a macro `failure_gba(WHOOPS)` that prints file, line, method and "exception" message to the text stream background. 
 
-### Unit Testing GBA games
-
-The engine comes with (some) [Google Test](https://github.com/google/googletest) test cases to show you how separate classes can effectively be unit tested. I had to stub out some ARM-specific ToncLib includes, that's why the `add_definitions(-DCODE_COMPILED_AS_PART_OF_TEST)` CMake statement is there. Gtest compiles library source with `g++` and **not with the cross-compiler**! 
-
 ### Compiling everything
 
 #### Prerequirements
 
 1. cmake 3.12.x or higher: the cmake linker toolchain set contains a bug in .11
-2. A compiled Google Test 1.8.x or higher with `$GTEST_DIR` env. var
-3. The [DevkitPro toolchain](https://devkitpro.org/wiki/Getting_Started) installed in your `$PATH`
-4. The [mGBA emulator](https://mgba.io/downloads.html)
+2. The [DevkitPro toolchain](https://devkitpro.org/wiki/Getting_Started) installed in your `$PATH`
+3. The [mGBA emulator](https://mgba.io/downloads.html)
 
 #### Compiling with cmake
 
 The project has been developed with CLion. The `.idea` dir is there for you to get started. The project can be imported as a cmake project. 
 
-As such, `CMake` was an easy choice. Use the following commands to build everything, including the demos:
+As such, `CMake` was an easy choice. Use the following commands to build everything:
 
 1. `mkdir cmake-build-debug && cd cmake-build-debug`
 2. `cmake ./../`
 3. `make`
 
-The demos will be in `cmake-build-debug/demos/demoname.gba`. 
-
 Things you might need to change in `CMakeLists.txt` files:
 
 1. gba-sprite-engine assumes your GBA cross-compiler is in your `$PATH`. If it's not, add an absolute path to `SET(CMAKE_C_COMPILER arm-none-eabi-gcc)` etc.
-2. gba-sprite-engine assumes your Google Test Library is compiled and in your `$GTEST_DIR` path. If not, add an absolute path to: `SET(GTEST_LIBRARY "/Users/jefklak/CLionProjects/googletest-release-1.8.0/googletest")`. The linker searches for 'ligbtest.a' and 'liggtest_main.a' - if you're on Linux it'll likely be a .so extension. 
-3. Some Linux distributions seem to miss the default link to `pthread` that should be added manually in that case. When you see errors like "undefined reference to 'pthread_setspecific'" while linking Google Test, change target_link_libraries in the CMakeLists.txt file of the subdir test to: `target_link_libraries(unittest ${GTEST_LIBRARY}/build/libgtest.a ${GTEST_LIBRARY}/build/libgtest_main.a pthread)`
 
 ##### Building using Windows
 
 Tested and working under Windows 10. Use [MinGW](http://www.mingw.org) or Cygwin, and add the `-G "Unix Makefiles"` option to your `cmake ./../` command. 
 
 Cygwin is also a possibility, but combined with CLion the Unix and Windows path structures will clash. If using an IDE like CLion, resort to using MinGW.
-
-#### Running unit tests
-
-After compiling, execute the `unittest` main executable:
-
-`./cmake-build-debug/test/unittest`
-
-And hope for exit code 0!

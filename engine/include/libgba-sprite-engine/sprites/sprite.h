@@ -61,7 +61,6 @@ protected:
     int x, y;
     u8 animation_offset;
     u32 priority, w, h, size_bits, shape_bits;
-    bool stayWithinBounds;
     u32 imageSize, tileIndex;
     SpriteSize spriteSize;
     u8 animationDelay, numberOfFrames, beginFrame, currentFrame, previousFrame, animationCounter;
@@ -90,7 +89,6 @@ public:
     inline void animateToFrame(int frame) { this->currentFrame = frame; }
     inline void animate() { this->animating = true; }
     inline void stopAnimating() { this->animating = false; }
-    inline void setStayWithinBounds(bool b) { stayWithinBounds = b; }
     inline void update();
 
     inline void moveTo(int x, int y);

@@ -12,7 +12,6 @@ add_library(${PROJECT_NAME}
         src/gba/sin_lut.s
         src/gba/tonc_bios.s
         src/sprites/sprite_builder.cpp
-        src/sprites/affine_sprite.cpp
         src/gba_engine.cpp
         src/background/text_stream.cpp
         src/background/background.cpp

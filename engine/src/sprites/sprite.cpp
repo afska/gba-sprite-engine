@@ -7,7 +7,7 @@
 
 #include <cstdlib>
 
-// All the functions are inline now
+// All the functions are inline in sprite.h
 
 Sprite::Sprite(const Sprite& other)
     : Sprite(nullptr, 0, other.x, other.y, other.spriteSize) {

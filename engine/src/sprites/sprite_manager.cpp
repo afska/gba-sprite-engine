@@ -5,7 +5,6 @@
 #include <libgba-sprite-engine/allocator.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_core.h>
-#include <libgba-sprite-engine/sprites/affine_sprite.h>
 #include <libgba-sprite-engine/sprites/sprite_manager.h>
 
 #define MAX_SPRITE_SIZE 128

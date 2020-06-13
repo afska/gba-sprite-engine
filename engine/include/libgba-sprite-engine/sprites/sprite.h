@@ -69,8 +69,8 @@ class Sprite {
   bool animating;
 
   inline void syncAnimation();
-  inline virtual void syncOam();
-  inline virtual void buildOam(int tileIndex);
+  inline void syncOam();
+  inline void buildOam(int tileIndex);
   inline void setAttributesBasedOnSize(SpriteSize size);
 
  public:

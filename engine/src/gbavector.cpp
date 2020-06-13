@@ -12,7 +12,7 @@ VECTOR GBAVector::rotateAsCenter(VECTOR point, uint angle) {
   s32 cos = lu_cos(angle) >> 4;
   s32 sin = lu_sin(angle) >> 4;
 
-  // affine matriches are 8.8 fixed point numbers, so shift all input 8 spaces
+  // affine matrices are 8.8 fixed point numbers, so shift all input 8 spaces
   // up and forth possibilities: instead of between [-1.0, 1.0] it's between
   // [-256, +256] 90° rotation in inversed y-axis needs to flip sin sign
   return {(cos * (defaultx - centerx) + sin * (defaulty - centery) +

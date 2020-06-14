@@ -12,6 +12,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * Some critical `GBAEngine` methods are now inline.
   * `Sprite`s now have an `enabled` property that can be used to pause `.update()` calls temporarily.
   * `Sprite::moveTo(x, y)` doesn't sync position and velocity anymore, there's no need.
+  * Animation OAM is only written when the current frame has changed.
 - Library tweaks:
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
   * `Sprite`s now have a `setPriority(priority)` method.

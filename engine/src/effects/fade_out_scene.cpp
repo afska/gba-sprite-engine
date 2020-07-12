@@ -4,7 +4,8 @@
 
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
-FadeOutScene::FadeOutScene(FadeOutType type, int speed) : type(type), timesUpdated(0), speed(speed) {}
+FadeOutScene::FadeOutScene(int speed) : type(FadeOutType::ToBlack), timesUpdated(0), speed(speed) {}
+FadeOutScene::FadeOutScene(int speed, FadeOutType type) : type(type), timesUpdated(0), speed(speed) {}
 
 void FadeOutScene::update() {
   if (!this->palette.get()) {

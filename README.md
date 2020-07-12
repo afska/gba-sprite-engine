@@ -6,7 +6,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
   * Now TextStream() uses *BG* 3, *Charblock* 3 and *Screenblock* 30. The *transparent tile* is 0.
 - Performance tweaks:
-  * Enabled compiler optimizations (`-Ofast`): 200% speed boost!
+  * Enabled compiler optimizations (`-Ofast`): 200% speed boost! ✔️ *(merged)*
   * Removed `while(1)`-based VSync. I'm using VBlank interrupts in my game's main loop.
   * All `Sprite`'s methods are now inline.
   * Some critical `GBAEngine` methods are now inline.
@@ -14,8 +14,8 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Sprite::moveTo(x, y)` doesn't sync position and velocity anymore, there's no need.
   * Animation OAM is only written when the current frame has changed.
 - Library tweaks:
+  * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected. ✔️ *(merged)*
   * `FadeOutEffect` now receives an optional `FadeOutType` parameter (`ToWhite` or `ToBlack`) to customize it. Default is now `ToBlack`.
-  * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
   * `Sprite`s now have a `setPriority(priority)` method.
   * `Allocator`'s `allocatedSprites` property is now public.
   * `Background`s now have a `useCharBlock(block)` method.

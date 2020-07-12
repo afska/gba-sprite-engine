@@ -4,7 +4,7 @@
 
 #include <libgba-sprite-engine/effects/fade_out_scene.h>
 
-FadeOutScene::FadeOutScene(int speed) : timesUpdated(0), speed(speed) {}
+FadeOutScene::FadeOutScene(FadeOutType type, int speed) : type(type), timesUpdated(0), speed(speed) {}
 
 void FadeOutScene::update() {
   if (!this->palette.get()) {
@@ -14,6 +14,6 @@ void FadeOutScene::update() {
     this->palette = std::unique_ptr<CombinedPalette>(*fgPalette + *bgPalette);
   }
 
-  this->palette.get()->increaseBrightness(speed);
+  this->palette.get()->changeBrightness(speed * (type == FadeOutType::ToWhite ? 1 : -1));
   timesUpdated++;
 }

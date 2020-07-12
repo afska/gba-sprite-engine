@@ -13,17 +13,17 @@ class CombinedPalette {
   PaletteManager& palette1;
   PaletteManager& palette2;
 
-  void increaseBrightness(PaletteManager& palette,
+  void changeBrightness(PaletteManager& palette,
                           int bank,
                           int index,
-                          u32 intensity);
+                          int intensity);
 
  public:
   CombinedPalette(PaletteManager& one, PaletteManager& two)
       : palette1(one), palette2(two) {}
   CombinedPalette(const CombinedPalette& other) = delete;
 
-  void increaseBrightness(u32 intensity);
+  void changeBrightness(int intensity);
 };
 
 #endif  // GBA_SPRITE_ENGINE_COMBINED_PALETTE_H

@@ -70,14 +70,14 @@ u32 PaletteManager::blue(COLOR r) {
   return getBits(r, 5, 10);
 }
 
-COLOR PaletteManager::modify(COLOR color, u32 intensity) {
-  return PaletteManager::color(PaletteManager::red(color) + intensity,
-                               PaletteManager::green(color) + intensity,
-                               PaletteManager::blue(color) + intensity);
+COLOR PaletteManager::modify(COLOR color, int intensity) {
+  return PaletteManager::color(std::max((int) PaletteManager::red(color) + intensity, 0),
+                               std::max((int)PaletteManager::green(color) + intensity, 0),
+                               std::max((int)PaletteManager::blue(color) + intensity, 0));
 }
 
-void PaletteManager::increaseBrightness(u32 intensity) {
-  if (intensity > 31) {
+void PaletteManager::changeBrightness(int intensity) {
+  if (abs(intensity) > 31) {
     failure_gba(Brightness_Intensity_Too_High);
     return;
   }

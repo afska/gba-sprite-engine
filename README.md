@@ -14,6 +14,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Sprite::moveTo(x, y)` doesn't sync position and velocity anymore, there's no need.
   * Animation OAM is only written when the current frame has changed.
 - Library tweaks:
+  * `FadeOutEffect` now receives a `FadeOutType` (`ToWhite` or `ToBlack`) to allow fade to black effects.
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected.
   * `Sprite`s now have a `setPriority(priority)` method.
   * `Allocator`'s `allocatedSprites` property is now public.

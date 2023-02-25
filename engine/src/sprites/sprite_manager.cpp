@@ -10,6 +10,20 @@
 #define MAX_SPRITE_SIZE 128
 #define MAX_AFFINE_SIZE 31
 
+__attribute__((section(".iwram"), target("arm"))) void
+SpriteManager::copyOverSpriteOAMToVRAM() {
+  int i = 0;
+
+  for (auto sprite : this->sprites) {
+    if (sprite->enabled) {
+      sprite->update();
+      oam_mem[i] = sprite->oam;
+    }
+
+    i++;
+  }
+}
+
 void SpriteManager::set(std::vector<Sprite*> sprites) {
   initialized = false;
 

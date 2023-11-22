@@ -15,6 +15,7 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * Animation OAM is only written when the current frame has changed.
   * Moved `SpriteManager::copyOverSpriteOAMToVRAM()` to IWRAM.
 - Library tweaks:
+  * FIX: Now `Sprite::flipHorizontally(...)` and `Sprite::flipVertically(...)` can be called before `Scene::sprites(...)`, preserving OAM.
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected. ✔️ *(merged)*
   * `FadeOutEffect` now receives an optional `FadeOutType` parameter (`ToWhite` or `ToBlack`) to customize it. Default is now `ToBlack`.
   * `Sprite`s now have a `setPriority(priority)` method.

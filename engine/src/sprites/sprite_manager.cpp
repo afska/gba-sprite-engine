@@ -8,9 +8,8 @@
 #include <libgba-sprite-engine/sprites/sprite_manager.h>
 
 #define MAX_SPRITE_SIZE 128
-#define MAX_AFFINE_SIZE 31
 
-__attribute__((section(".iwram"), target("arm"))) void
+__attribute__((section(".iwram"), target("arm"), noinline)) void
 SpriteManager::copyOverSpriteOAMToVRAM() {
   int i = 0;
 

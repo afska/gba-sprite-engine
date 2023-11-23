@@ -1,6 +1,6 @@
 # gba-sprite-engine
 
-This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com/wgroeneveld/gba-sprite-engine). The changes are:
+This is a highly modified version of [wgroeneveld/gba-sprite-engine](https://github.com/wgroeneveld/gba-sprite-engine). The changes are:
 
 - VRAM usage tweaks:
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
@@ -26,9 +26,12 @@ This is a modified version of [wgroeneveld/gba-sprite-engine](https://github.com
   * `Sprite`'s `oam` property is now public.
   * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
-- Removed features (for performance reasons):
+- Removed features: (for performance reasons)
   * `Sprite`'s velocity
-  * `AffineSprite`s
+  * Affine sprites
+  * Sound
+  * Timers
+  * Vectors
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 

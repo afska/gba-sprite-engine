@@ -67,7 +67,7 @@ u32 Background::getBgControlRegisterIndex() {
     case 3:
       return 0x000E;
   }
-  throw std::runtime_error("unknown bg index");
+  return 0;
 }
 
 void Background::buildRegister() {

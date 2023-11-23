@@ -14,9 +14,9 @@ class CombinedPalette {
   PaletteManager& palette2;
 
   void changeBrightness(PaletteManager& palette,
-                          int bank,
-                          int index,
-                          int intensity);
+                        int bank,
+                        int index,
+                        int intensity);
 
  public:
   CombinedPalette(PaletteManager& one, PaletteManager& two)

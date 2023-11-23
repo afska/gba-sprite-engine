@@ -4,12 +4,6 @@
 
 #include <libgba-sprite-engine/allocator.h>
 
-#include <stdexcept>
-
-u32 voidPtrToU32(void* ptr) {
-  return static_cast<u32>(reinterpret_cast<intptr_t>(ptr));
-}
-
 u32 Allocator::currentSpriteIndex;
 std::vector<AllocatedData> Allocator::allocatedSprites;
 

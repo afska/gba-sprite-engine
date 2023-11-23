@@ -6,9 +6,9 @@
 #include <libgba-sprite-engine/palette/palette_manager.h>
 
 void CombinedPalette::changeBrightness(PaletteManager& palette,
-                                         int bank,
-                                         int index,
-                                         int intensity) {
+                                       int bank,
+                                       int index,
+                                       int intensity) {
   auto current = palette.get(bank, index);
   auto next = PaletteManager::modify(current, intensity);
 
@@ -20,7 +20,7 @@ void CombinedPalette::changeBrightness(int intensity) {
     failure_gba(Brightness_Intensity_Too_High);
     return;
   }
-  
+
   for (int bank = 0; bank < PALETTE_BANK_SIZE; bank++) {
     for (int index = 0; index < PALETTE_BANK_SIZE; index++) {
       changeBrightness(palette1, bank, index, intensity);

@@ -16,23 +16,6 @@
 
 #define TRANSPARENT_TILE_NUMBER 0
 
-// WHY using this instead of Allocation?
-// Because each char block seems to be 16K and there are 4 - there are also 4
-// backgrounds. Use the bgIndex as a hardcoded char block and let the background
-// decide on the map screen block.
-void* screen_block(unsigned long block) {
-  return (void*)(0x6000000 + (block * 0x800));
-}
-
-void* char_block(unsigned long block) {
-  return (void*)(0x6000000 + (block * 0x4000));
-}
-
-void Background::updateMap(const void* map) {
-  this->map = map;
-  dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
-}
-
 void Background::persist() {
   dma3_cpy(char_block(charBlockIndex), this->data, this->size);
 
@@ -40,7 +23,12 @@ void Background::persist() {
     dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
   }
 
-  buildRegister();
+  setControlRegister();
+}
+
+void Background::render() {
+  REG_BG_OFS[bgIndex].x = scrollX;
+  REG_BG_OFS[bgIndex].y = scrollY;
 }
 
 void Background::clearData() {
@@ -56,6 +44,28 @@ void Background::clearMap() {
   }
 }
 
+void Background::scroll(int x, int y) {
+  scrollX = x;
+  scrollY = y;
+}
+
+void Background::scrollDelta(int dx, int dy) {
+  scrollX += dx;
+  scrollY += dy;
+}
+
+void Background::setControlRegister() {
+  *(vu16*)(REG_BASE + getBgControlRegisterIndex()) =
+      priority |              /* priority, 0 is highest, 3 is lowest */
+      (charBlockIndex << 2) | /* the char block the image data is stored in */
+      ((mosaicEnabled ? 1 : 0) << 6) | /* the mosaic flag */
+      (1 << 7) | /* color mode, 0 is 16 colors, 1 is 256 colors */
+      (screenBlockIndex
+       << 8) |    /* the screen block the tile data is stored in */
+      (1 << 13) | /* wrapping flag */
+      (mapLayout << 14);
+}
+
 u32 Background::getBgControlRegisterIndex() {
   switch (bgIndex) {
     case 0:
@@ -68,26 +78,4 @@ u32 Background::getBgControlRegisterIndex() {
       return 0x000E;
   }
   return 0;
-}
-
-void Background::buildRegister() {
-  *(vu16*)(REG_BASE + getBgControlRegisterIndex()) =
-      priority |              /* priority, 0 is highest, 3 is lowest */
-      (charBlockIndex << 2) | /* the char block the image data is stored in */
-      ((mosaicEnabled ? 1 : 0) << 6) | /* the mosaic flag */
-      (1 << 7) | /* color mode, 0 is 16 colors, 1 is 256 colors */
-      (screenBlockIndex
-       << 8) |    /* the screen block the tile data is stored in */
-      (1 << 13) | /* wrapping flag */
-      (mapLayout << 14);
-}
-
-void Background::scroll(int x, int y) {
-  REG_BG_OFS[bgIndex].x = x;
-  REG_BG_OFS[bgIndex].y = y;
-}
-
-void Background::scrollSpeed(int dx, int dy) {
-  REG_BG_OFS[bgIndex].x += dx;
-  REG_BG_OFS[bgIndex].y += dy;
 }

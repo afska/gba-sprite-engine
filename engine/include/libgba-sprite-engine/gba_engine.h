@@ -40,9 +40,6 @@ class GBAEngine {
     }
 
     currentScene->render();
-
-    if (mainBackground != nullptr)
-      mainBackground->render();
     spriteManager.render();
   }
 
@@ -56,7 +53,6 @@ class GBAEngine {
 
   bool disableTextBg;
   SpriteManager spriteManager;
-  Background* mainBackground = nullptr;
 
   void cleanupPreviousScene();
 };

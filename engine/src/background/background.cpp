@@ -44,9 +44,9 @@ void Background::scroll(int x, int y) {
   scrollY = y;
 }
 
-void Background::scrollDelta(int dx, int dy) {
-  scrollX += dx;
-  scrollY += dy;
+void Background::scrollNow(int x, int y) {
+  scroll(x, y);
+  render();
 }
 
 void Background::buildRegister() {

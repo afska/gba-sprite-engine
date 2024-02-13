@@ -26,8 +26,6 @@ void GBAEngine::cleanupPreviousScene() {
   sceneToTransitionTo = nullptr;
   delete currentEffectForTransition;
   currentEffectForTransition = nullptr;
-
-  mainBackground = nullptr;
 }
 
 void GBAEngine::setScene(Scene* scene) {
@@ -56,7 +54,6 @@ void GBAEngine::setScene(Scene* scene) {
   }
 
   for (const auto bg : scene->backgrounds()) {
-    mainBackground = bg;
     bg->persist();
   }
 

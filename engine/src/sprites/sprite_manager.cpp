@@ -12,8 +12,8 @@ SpriteManager::copyOverSpriteOAMToVRAM() {
   for (auto sprite : this->sprites) {
     if (sprite->enabled) {
       sprite->update();
-      oam_mem[i] = sprite->oam;
     }
+    oam_mem[i] = sprite->oam;
 
     i++;
   }

@@ -23,12 +23,7 @@ class GBAEngine {
   void disableText() { this->disableTextBg = true; }
   void enableText() { this->disableTextBg = false; }
 
-  u16 readKeys();
-
   inline void update() {
-    // main update loop, in while(true) {}.
-    // WARNING - keep amount of instructions as minimal as possible in here!
-
     if (sceneToTransitionTo) {
       currentEffectForTransition->update();
 
@@ -37,13 +32,15 @@ class GBAEngine {
       }
     }
 
-    u16 keys = readKeys();
-
-    // Main scene update loop call. This *might* take a while.
+    u16 keys = ~REG_KEYS & KEY_ANY;
     currentScene->tick(keys);
 
-    // You should handle vsync externally.
+    // (call render() on vsync)
+  }
 
+  inline void render() {
+    if (mainBackground != nullptr)
+      mainBackground->render();
     spriteManager.render();
   }
 
@@ -57,6 +54,7 @@ class GBAEngine {
 
   bool disableTextBg;
   SpriteManager spriteManager;
+  Background* mainBackground = nullptr;
 
   void cleanupPreviousScene();
 };

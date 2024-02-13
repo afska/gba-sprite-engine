@@ -3,10 +3,6 @@
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba_engine.h>
 
-u16 GBAEngine::readKeys() {
-  return ~REG_KEYS & KEY_ANY;
-}
-
 GBAEngine::GBAEngine() {
   REG_DISPCNT = DCNT_MODE0 | DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG0 | DCNT_BG1 |
                 DCNT_BG2 | DCNT_BG3;
@@ -30,6 +26,8 @@ void GBAEngine::cleanupPreviousScene() {
   sceneToTransitionTo = nullptr;
   delete currentEffectForTransition;
   currentEffectForTransition = nullptr;
+
+  mainBackground = nullptr;
 }
 
 void GBAEngine::setScene(Scene* scene) {
@@ -58,6 +56,7 @@ void GBAEngine::setScene(Scene* scene) {
   }
 
   for (const auto bg : scene->backgrounds()) {
+    mainBackground = bg;
     bg->persist();
   }
 

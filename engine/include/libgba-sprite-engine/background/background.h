@@ -57,7 +57,7 @@ class Background {
   void persistNow(F copyMemory) {
     copyMemory(screen_block(screenBlockIndex), this->mapSize);
     copyMemory(char_block(charBlockIndex), this->size);
-    setControlRegister();
+    buildRegister();
   }
 
  protected:
@@ -71,7 +71,7 @@ class Background {
   u32 scrollY = 0;
 
  private:
-  void setControlRegister();
+  void buildRegister();
   u32 getBgControlRegisterIndex();
 
   // WHY using this instead of Allocation?

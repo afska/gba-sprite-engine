@@ -5,14 +5,9 @@
 #include <libgba-sprite-engine/allocator.h>
 #include <libgba-sprite-engine/gba/tonc_memmap.h>
 
-#include <stdexcept>
-#ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <libgba-sprite-engine/gba/tonc_core_stub.h>
-#else
-#include <libgba-sprite-engine/gba/tonc_core.h>
-#endif
 #include <libgba-sprite-engine/background/background.h>
 #include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba/tonc_core.h>
 
 #define TRANSPARENT_TILE_NUMBER 0
 
@@ -23,7 +18,7 @@ void Background::persist() {
     dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);
   }
 
-  setControlRegister();
+  buildRegister();
 }
 
 void Background::render() {
@@ -54,7 +49,7 @@ void Background::scrollDelta(int dx, int dy) {
   scrollY += dy;
 }
 
-void Background::setControlRegister() {
+void Background::buildRegister() {
   *(vu16*)(REG_BASE + getBgControlRegisterIndex()) =
       priority |              /* priority, 0 is highest, 3 is lowest */
       (charBlockIndex << 2) | /* the char block the image data is stored in */

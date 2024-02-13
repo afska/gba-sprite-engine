@@ -1,7 +1,3 @@
-//
-// Created by Wouter Groeneveld on 27/07/18.
-//
-
 #include <libgba-sprite-engine/allocator.h>
 
 u32 Allocator::currentSpriteIndex;

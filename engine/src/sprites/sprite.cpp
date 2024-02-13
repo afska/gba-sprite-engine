@@ -1,7 +1,3 @@
-//
-// Created by Wouter Groeneveld on 26/07/18.
-//
-
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/sprites/sprite.h>
 

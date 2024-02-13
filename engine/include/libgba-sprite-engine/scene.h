@@ -1,7 +1,3 @@
-//
-// Created by Wouter Groeneveld on 28/07/18.
-//
-
 #ifndef GBA_SPRITE_ENGINE_SCRENE_H
 #define GBA_SPRITE_ENGINE_SCRENE_H
 
@@ -14,11 +10,6 @@
 class GBAEngine;
 
 class Scene {
- protected:
-  std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
-  std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
-  std::shared_ptr<GBAEngine> engine;
-
  public:
   ForegroundPaletteManager* getForegroundPalette() {
     return foregroundPalette.get();
@@ -44,6 +35,11 @@ class Scene {
   virtual ~Scene() {
     // scenes should manage their own resources - use std::unique_ptr
   }
+
+ protected:
+  std::unique_ptr<ForegroundPaletteManager> foregroundPalette;
+  std::unique_ptr<BackgroundPaletteManager> backgroundPalette;
+  std::shared_ptr<GBAEngine> engine;
 };
 
 #endif  // GBA_SPRITE_ENGINE_SCRENE_H

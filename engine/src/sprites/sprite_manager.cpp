@@ -1,7 +1,3 @@
-//
-// Created by Wouter Groeneveld on 26/07/18.
-//
-
 #include <libgba-sprite-engine/allocator.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_core.h>

@@ -32,6 +32,7 @@ This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https:/
   * Timers
   * Vectors
   * FadeOutScene
+  * Sprite collisions
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 

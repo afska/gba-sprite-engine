@@ -1,7 +1,3 @@
-//
-// Created by Wouter Groeneveld on 28/07/18.
-//
-
 #ifndef GBA_SPRITE_ENGINE_GBAENGINE_H
 #define GBA_SPRITE_ENGINE_GBAENGINE_H
 
@@ -16,17 +12,6 @@
 #define GBA_SCREEN_HEIGHT 160
 
 class GBAEngine {
- private:
-  // WHY raw pointers? the engine does the transition and cleanup work itself
-  Scene* currentScene;
-  Scene* sceneToTransitionTo;
-  SceneEffect* currentEffectForTransition;
-
-  bool disableTextBg;
-  SpriteManager spriteManager;
-
-  void cleanupPreviousScene();
-
  public:
   GBAEngine();
 
@@ -61,6 +46,17 @@ class GBAEngine {
   }
 
   void updateSpritesInScene();
+
+ private:
+  // WHY raw pointers? the engine does the transition and cleanup work itself
+  Scene* currentScene;
+  Scene* sceneToTransitionTo;
+  SceneEffect* currentEffectForTransition;
+
+  bool disableTextBg;
+  SpriteManager spriteManager;
+
+  void cleanupPreviousScene();
 };
 
 #endif  // GBA_SPRITE_ENGINE_GBAENGINE_H

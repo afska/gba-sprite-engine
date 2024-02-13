@@ -1,13 +1,5 @@
-//
-// Created by Wouter Groeneveld on 27/07/18.
-//
-
-#ifdef CODE_COMPILED_AS_PART_OF_TEST
-#include <libgba-sprite-engine/gba/tonc_core_stub.h>
-#else
-#include <libgba-sprite-engine/gba/tonc_core.h>
-#endif
 #include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/gba/tonc_core.h>
 #include <libgba-sprite-engine/palette/palette_manager.h>
 
 const COLOR defaultPaletteData[PALETTE_MAX_SIZE] __attribute__((aligned(4))) = {
@@ -33,10 +25,6 @@ int getBits(int number, int k, int p) {
 PaletteManager::PaletteManager(const COLOR* paletteData, int size)
     : data(paletteData), size(size) {}
 
-CombinedPalette* PaletteManager::operator+(const PaletteManager& other) {
-  return new CombinedPalette(*this, const_cast<PaletteManager&>(other));
-}
-
 void PaletteManager::persist() {
   dma3_cpy(this->paletteAddress(), this->data, this->size);
 }
@@ -56,40 +44,6 @@ COLOR PaletteManager::color(u32 red, u32 green, u32 blue) {
   if (blue > 31)
     blue = 31;
   return red | (green << 5) | (blue << 10);
-}
-
-u32 PaletteManager::red(COLOR r) {
-  return getBits(r, 5, 0);
-}
-
-u32 PaletteManager::green(COLOR r) {
-  return getBits(r, 5, 5);
-}
-
-u32 PaletteManager::blue(COLOR r) {
-  return getBits(r, 5, 10);
-}
-
-COLOR PaletteManager::modify(COLOR color, int intensity) {
-  return PaletteManager::color(std::max((int) PaletteManager::red(color) + intensity, 0),
-                               std::max((int)PaletteManager::green(color) + intensity, 0),
-                               std::max((int)PaletteManager::blue(color) + intensity, 0));
-}
-
-void PaletteManager::changeBrightness(int intensity) {
-  if (abs(intensity) > 31) {
-    failure_gba(Brightness_Intensity_Too_High);
-    return;
-  }
-
-  for (int bank = 0; bank < PALETTE_BANK_SIZE; bank++) {
-    for (int index = 0; index < PALETTE_BANK_SIZE; index++) {
-      auto current = get(bank, index);
-      auto next = PaletteManager::modify(current, intensity);
-
-      change(bank, index, next);
-    }
-  }
 }
 
 void PaletteManager::persistToBank(int bank) {

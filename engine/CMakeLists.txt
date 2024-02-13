@@ -7,11 +7,9 @@ add_library(${PROJECT_NAME}
         src/sprites/sprite_manager.cpp
         src/sprites/sprite.cpp
         src/palette/palette_manager.cpp
-        src/palette/combined_palette.cpp
         src/allocator.cpp
         src/gba/sin_lut.s
         src/gba/tonc_bios.s
-        src/sprites/sprite_builder.cpp
         src/gba_engine.cpp
         src/background/text_stream.cpp
         src/background/background.cpp)

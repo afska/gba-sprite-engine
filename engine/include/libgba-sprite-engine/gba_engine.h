@@ -39,6 +39,8 @@ class GBAEngine {
   }
 
   inline void render() {
+    currentScene->render();
+
     if (mainBackground != nullptr)
       mainBackground->render();
     spriteManager.render();

@@ -27,6 +27,7 @@ class Scene {
 
   virtual void load() = 0;
   virtual void tick(u16 keys) = 0;
+  virtual void render() {}
 
   Scene(std::shared_ptr<GBAEngine> engine)
       : engine(engine),

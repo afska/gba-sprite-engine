@@ -1,7 +1,3 @@
-//
-// Created by Wouter Groeneveld on 28/07/18.
-//
-
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memmap.h>
 #include <libgba-sprite-engine/palette/palette_manager.h>
@@ -13,12 +9,6 @@ TextStream* TextStream::inst;
 const int TEXT_BG_ID = 0;
 const int TEXT_CHARBLOCK = 3;
 const int TEXT_SCREENBLOCK = 30;
-
-void TextStream::clear() {
-  currRow = 0;
-  currCol = 0;
-  clearMap();
-}
 
 TextStream::TextStream()
     : Background(TEXT_BG_ID,
@@ -37,22 +27,15 @@ TextStream::TextStream()
   clear();
 }
 
+void TextStream::clear() {
+  currRow = 0;
+  currCol = 0;
+  clearMap();
+}
+
 void log_text(const char* text) {
   TextStream::instance().clear();
   TextStream::instance() << text;
-}
-
-void consoleLog_func(const char* fileName,
-                     const int lineNr,
-                     const char* fnName,
-                     const char* msg) {
-  TextStream::instance().clear();
-
-  TextStream::instance() << (std::string("DEBUG: ") + std::string(fileName) +
-                             std::string(":") + std::string(fnName) +
-                             std::string("@") + std::to_string(lineNr) +
-                             std::string(" -- ") + std::string(msg))
-                                .c_str();
 }
 
 TextStream& TextStream::instance() {

@@ -14,8 +14,7 @@ add_library(${PROJECT_NAME}
         src/sprites/sprite_builder.cpp
         src/gba_engine.cpp
         src/background/text_stream.cpp
-        src/background/background.cpp
-        src/effects/fade_out_scene.cpp)
+        src/background/background.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

@@ -61,10 +61,6 @@ class GBAEngine {
   }
 
   void updateSpritesInScene();
-  void delay(int times) {
-    for (int i = 0; i < times; i++) {
-    }
-  }
 };
 
 #endif  // GBA_SPRITE_ENGINE_GBAENGINE_H

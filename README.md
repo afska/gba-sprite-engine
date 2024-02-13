@@ -1,6 +1,6 @@
 # gba-sprite-engine
 
-This is a highly modified version of [wgroeneveld/gba-sprite-engine](https://github.com/wgroeneveld/gba-sprite-engine). The changes are:
+This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https://github.com/wgroeneveld/gba-sprite-engine) for my needs (used by [piuGBA](https://github.com/afska/piugba)). The changes are:
 
 - VRAM usage tweaks:
   * Now you can avoid filling up VRAM by reusing tiles: `sprite->setData(NULL); sprite->setImageSize(0);`. The sprite manager will reuse the last loaded sprite data.
@@ -17,21 +17,21 @@ This is a highly modified version of [wgroeneveld/gba-sprite-engine](https://git
 - Library tweaks:
   * FIX: Now `Sprite::flipHorizontally(...)` and `Sprite::flipVertically(...)` can be called before `Scene::sprites(...)`, preserving OAM.
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected. ✔️ *(merged)*
-  * `FadeOutEffect` now receives an optional `FadeOutType` parameter (`ToWhite` or `ToBlack`) to customize it. Default is now `ToBlack`.
   * `Sprite`s now have a `setPriority(priority)` method.
   * `Allocator`'s `allocatedSprites` property is now public.
   * `Background`s now have a `useCharBlock(block)` method.
   * `Background`s now have a `usePriority(priority)` method.
   * `Background`s now have a `setMosaic(enabled)` method.
-  * `Sprite`'s `oam` property is now public.
   * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
-- Removed features: (for performance reasons)
+  * Split lifecycle in `tick()` (VDraw) and `render()` (VBlank)
+- Removed features: (to save time / ROM space)
   * `Sprite`'s velocity
   * Affine sprites
   * Sound
   * Timers
   * Vectors
+  * FadeOutScene
 
 ## A high-level object-oriented Gameboy Advance sprite engine library
 

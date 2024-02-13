@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_SPRITE_BUILDER_H
 #define GBA_SPRITE_ENGINE_SPRITE_BUILDER_H
 
+#pragma GCC system_header
+
 #include "sprite.h"
 
 template <typename T>

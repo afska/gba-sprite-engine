@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_SCRENE_H
 #define GBA_SPRITE_ENGINE_SCRENE_H
 
+#pragma GCC system_header
+
 #include <libgba-sprite-engine/background/background.h>
 #include <libgba-sprite-engine/palette/palette_manager.h>
 #include <libgba-sprite-engine/sprites/sprite.h>

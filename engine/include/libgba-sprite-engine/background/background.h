@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_BACKGROUND_H
 #define GBA_SPRITE_ENGINE_BACKGROUND_H
 
+#pragma GCC system_header
+
 #include <libgba-sprite-engine/gba/tonc_types.h>
 
 #define MAPLAYOUT_32X32 0

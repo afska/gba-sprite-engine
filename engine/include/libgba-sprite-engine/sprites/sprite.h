@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_SPRITE_H
 #define GBA_SPRITE_ENGINE_SPRITE_H
 
+#pragma GCC system_header
+
 // inline-functions---
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>

@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_GBAENGINE_H
 #define GBA_SPRITE_ENGINE_GBAENGINE_H
 
+#pragma GCC system_header
+
 #include <libgba-sprite-engine/effects/scene_effect.h>
 #include <libgba-sprite-engine/gba/tonc_memdef.h>
 #include <libgba-sprite-engine/gba/tonc_memmap.h>

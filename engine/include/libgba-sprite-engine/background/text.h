@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_TEXT_H
 #define GBA_SPRITE_ENGINE_TEXT_H
 
+#pragma GCC system_header
+
 #define text_background_width 256
 #define text_background_height 24
 

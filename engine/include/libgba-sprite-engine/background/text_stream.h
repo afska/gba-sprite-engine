@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_TEXT_STREAM_H
 #define GBA_SPRITE_ENGINE_TEXT_STREAM_H
 
+#pragma GCC system_header
+
 #include <libgba-sprite-engine/palette/palette_manager.h>
 
 #include <memory>

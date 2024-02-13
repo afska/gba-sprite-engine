@@ -1,6 +1,8 @@
 #ifndef GBA_SPRITE_ENGINE_SPRITE_MANAGER_H
 #define GBA_SPRITE_ENGINE_SPRITE_MANAGER_H
 
+#pragma GCC system_header
+
 #include <libgba-sprite-engine/gba/tonc_types.h>
 
 #include <vector>

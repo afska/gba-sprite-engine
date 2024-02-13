@@ -9,7 +9,7 @@ class SceneEffect {
  public:
   void setSceneToAffect(Scene* scene) { sceneToAffect = scene; };
 
-  virtual void update() = 0;
+  virtual void render() = 0;
   virtual bool isDone() = 0;
 
  protected:

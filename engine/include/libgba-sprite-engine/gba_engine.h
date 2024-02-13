@@ -24,14 +24,6 @@ class GBAEngine {
   void enableText() { this->disableTextBg = false; }
 
   inline void update() {
-    if (sceneToTransitionTo) {
-      currentEffectForTransition->update();
-
-      if (currentEffectForTransition->isDone()) {
-        setScene(sceneToTransitionTo);
-      }
-    }
-
     u16 keys = ~REG_KEYS & KEY_ANY;
     currentScene->tick(keys);
 
@@ -39,6 +31,14 @@ class GBAEngine {
   }
 
   inline void render() {
+    if (sceneToTransitionTo) {
+      currentEffectForTransition->render();
+
+      if (currentEffectForTransition->isDone()) {
+        setScene(sceneToTransitionTo);
+      }
+    }
+
     currentScene->render();
 
     if (mainBackground != nullptr)

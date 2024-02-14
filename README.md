@@ -22,6 +22,7 @@ This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https:/
   * `Background`s now have a `useCharBlock(block)` method.
   * `Background`s now have a `usePriority(priority)` method.
   * `Background`s now have a `setMosaic(enabled)` method.
+  * `Background::scroll` doesn't actually scroll until `render()` is called. Also `scrollNow(...)` was added (scroll + render).
   * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
   * Split lifecycle in `tick()` (VDraw) and `render()` (VBlank)

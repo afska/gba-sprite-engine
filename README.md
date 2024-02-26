@@ -26,6 +26,7 @@ This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https:/
   * `Sprite::syncVelocity` was renamed to `Sprite::syncPosition`.
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
   * Split lifecycle in `tick()` (VDraw) and `render()` (VBlank)
+  * `Sprite::oam` is now public
 - Removed features: (to save time / ROM space)
   * `Sprite`'s velocity
   * Affine sprites

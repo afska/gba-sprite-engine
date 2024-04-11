@@ -18,6 +18,8 @@ This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https:/
   * FIX: Now `Sprite::flipHorizontally(...)` and `Sprite::flipVertically(...)` can be called before `Scene::sprites(...)`, preserving OAM.
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected. ✔️ *(merged)*
   * `Sprite`s now have a `setPriority(priority)` method.
+  * `Sprite`s now have a `setAffineId(id)` method.
+  * `Sprite`s now have a `setDoubleSize(enabled)` method.
   * `Allocator`'s `allocatedSprites` property is now public.
   * `Background`s now have a `useCharBlock(block)` method.
   * `Background`s now have a `usePriority(priority)` method.

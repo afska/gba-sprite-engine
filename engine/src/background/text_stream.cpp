@@ -101,8 +101,14 @@ void TextStream::setFontColor(COLOR color) {
   palette.get()->change(PALETTE_TEXT_BANK, PALETTE_COLOR_INDEX, color);
 }
 
+void TextStream::setFontSubcolor(COLOR color) {
+  palette.get()->change(PALETTE_TEXT_BANK, PALETTE_COLOR_INDEX - 1, color);
+}
+
 void TextStream::persist() {
   Background::persist();
-  // WARNING: stream hijacks last bg palette bank, last index, no matter what.
-  setFontColor(PaletteManager::color(31, 31, 31));
+  // WARNING: stream hijacks last bg palette bank, last 2 indexes, no matter
+  // what.
+  setFontColor(text_bg_palette_default_color);
+  setFontSubcolor(text_bg_palette_default_subcolor);
 }

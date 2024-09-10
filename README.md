@@ -29,6 +29,7 @@ This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https:/
   * All `Sprite`s now have `MOSAIC_MODE` always ON (instead of always OFF).
   * Split lifecycle in `tick()` (VDraw) and `render()` (VBlank)
   * `Sprite::oam` is now public
+  - The default text font now has a border and takes 1 more palette color. The secondary color can be changed using `TextStream::setFontSubcolor(...)`
 - Removed features: (to save time / ROM space)
   * `Sprite`'s velocity
   * Affine sprites

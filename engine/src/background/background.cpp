@@ -5,6 +5,7 @@
 #include <libgba-sprite-engine/allocator.h>
 #include <libgba-sprite-engine/gba/tonc_memmap.h>
 
+#include <libgba-sprite-engine/3rd_party/cult-of-gba-bios/lz77.h>
 #include <libgba-sprite-engine/background/background.h>
 #include <libgba-sprite-engine/background/text_stream.h>
 #include <libgba-sprite-engine/gba/tonc_core.h>
@@ -12,7 +13,11 @@
 #define TRANSPARENT_TILE_NUMBER 0
 
 void Background::persist() {
-  dma3_cpy(char_block(charBlockIndex), this->data, this->size);
+  if (lz77) {
+    swi_LZ77UnCompWrite16bit(this->data, char_block(charBlockIndex));
+  } else {
+    dma3_cpy(char_block(charBlockIndex), this->data, this->size);
+  }
 
   if (this->map) {
     dma3_cpy(screen_block(screenBlockIndex), this->map, this->mapSize);

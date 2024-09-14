@@ -14,6 +14,7 @@ This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https:/
   * `Sprite::moveTo(x, y)` doesn't sync position and velocity anymore, there's no need.
   * Animation OAM is only written when the current frame has changed.
   * Moved `SpriteManager::copyOverSpriteOAMToVRAM()` to IWRAM.
+  * Data from previous scene's backgrounds is not cleared anymore.
 - Library tweaks:
   * FIX: Now `Sprite::flipHorizontally(...)` and `Sprite::flipVertically(...)` can be called before `Scene::sprites(...)`, preserving OAM.
   * `Sprite::getX()` and `Sprite::getY()` now returns `signed int`s as expected. ✔️ *(merged)*

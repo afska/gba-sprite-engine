@@ -18,10 +18,6 @@ void GBAEngine::transitionIntoScene(Scene* scene, SceneEffect* effect) {
 }
 
 void GBAEngine::cleanupPreviousScene() {
-  for (auto bg : currentScene->backgrounds()) {
-    bg->clearData();
-  }
-
   delete currentScene;
   sceneToTransitionTo = nullptr;
   delete currentEffectForTransition;

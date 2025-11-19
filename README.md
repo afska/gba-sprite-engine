@@ -1,3 +1,5 @@
+> ⚠️ This project is unmaintained. Consider using a more mature GBA engine like [butano](https://github.com/GValiente/butano).
+
 # gba-sprite-engine
 
 This is a **highly** modified version of [wgroeneveld/gba-sprite-engine](https://github.com/wgroeneveld/gba-sprite-engine) for my needs (used by [piuGBA](https://github.com/afska/piugba)). The changes are:
